@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Valentine's Day</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      text-align: center;
+      background: pink;
+      color: #b30059;
+      margin-top: 100px;
+      overflow: hidden;
+    }
+    h1 {
+      font-size: 2.5em;
+    }
+    .buttons {
+      margin-top: 40px;
+      position: relative;
+    }
+    button {
+      font-size: 1.5em;
+      padding: 15px 30px;
+      margin: 20px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    #yes {
+      background-color: #ff3366;
+      color: white;
+    }
+    #no {
+      background-color: #fff;
+      color: #ff3366;
+      border: 2px solid #ff3366;
+      position: absolute;
+    }
+    #message {
+      margin-top: 50px;
+      font-size: 1.5em;
+      display: none;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.6;
+    }
+    .heart {
+      position: absolute;
+      color: red;
+      font-size: 24px;
+      animation: floatUp 5s linear infinite;
+    }
+    @keyframes floatUp {
+      0% { transform: translateY(100vh) scale(1); opacity: 1; }
+      100% { transform: translateY(-10vh) scale(1.5); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+  <h1>Will you be my forever?</h1>
+  <div class="buttons">
+    <button id="yes">YES</button>
+    <button id="no">NO</button>
+  </div>
+  <div id="message">
+    <p>Happy Valentine’s Day, my boo.<br>
+    I can’t wait for the day I get to celebrate Valentine’s with you — not just this day, but every special date on the calendar. More than that, I can’t wait for the ordinary days… the mornings, the random afternoons, the quiet nights — just being with you.<br><br>
+    Every day with you will always mean more than any holiday ever could.<br>
+    I love you. ❤️</p>
+  </div>
+
+  <script>
+    const yesBtn = document.getElementById('yes');
+    const noBtn = document.getElementById('no');
+    const message = document.getElementById('message');
+    let yesSize = 1.5;
+    let noComments = [
+      "are you sure?",
+      "boo u sure",
+      "booooo",
+      "just say yes boo",
+      "boo pleaseeeee"
+    ];
+    let commentIndex = 0;
+
+    // Move NO button randomly
+    function moveNoButton() {
+      const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+      const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+      noBtn.style.left = x + "px";
+      noBtn.style.top = y + "px";
+    }
+
+    noBtn.addEventListener('click', () => {
+      yesSize += 0.3;
+      yesBtn.style.fontSize = yesSize + "em";
+      noBtn.textContent = noComments[commentIndex];
+      commentIndex = (commentIndex + 1) % noComments.length;
+      moveNoButton();
+    });
+
+    yesBtn.addEventListener('click', () => {
+      document.querySelector('.buttons').style.display = 'none';
+      message.style.display = 'block';
+    });
+
+    // Floating hearts
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.classList.add("heart");
+      heart.textContent = "❤️";
+      heart.style.left = Math.random() * window.innerWidth + "px";
+      heart.style.top = "100vh";
+      document.body.appendChild(heart);
+
+      setTimeout(() => {
+        heart.remove();
+      }, 5000);
+    }
+
+    setInterval(createHeart, 700);
+  </script>
+</body>
+</html>
